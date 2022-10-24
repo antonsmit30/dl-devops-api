@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    REGION: eu-west-1
+    VERSION_TAG: v1
+  parameter-store:
+    REPO: "/DL-API/REPO"
+
+phases:
+  install:
+    commands:
+      - ls -lha # Check what is all in the directory
+  pre_build:
+    commands:
+      - echo '====Running tests against application ===='
+      - python -m pytest
+    finally:
+      - echo 'logging into aws'
+      - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO
+    on-failure: ABORT
+  build:
+    commands:
+      - echo building Container
+      - docker build -t $REPO:v1 .
+    on-failure: ABORT
+  post_build:
+    commands:
+      - echo Pushing up image $REPO:v1
+      - docker push $REPO:v1
