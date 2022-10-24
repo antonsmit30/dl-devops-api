@@ -13,7 +13,7 @@ phases:
       - ls -lha # Check what is all in the directory
   pre_build:
     commands:
-      - pip install pytest
+      - pip install pytest fastapi
       - echo '====Running tests against application ===='
       - python -m pytest
     finally:
