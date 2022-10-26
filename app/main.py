@@ -15,7 +15,7 @@ async def replace_string_words(request: Request):
     """
 Send a string that will replace the following keywords:\n
 "Oracle", "Google", "Microsoft", "Amazon", "Deloitte"\n
-with:\n
+with this character©:\n
 "Oracle©", "Google©", "Microsoft©", "Amazon©", "Deloitte©"\n
 
 Method: POST\n
