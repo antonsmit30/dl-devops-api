@@ -8,7 +8,7 @@ words_to_replace = ["Oracle", "Google", "Microsoft", "Amazon", "Deloitte"]
 
 @app.get("/")
 def home():
-    return {"message": "Success, API connection works. Perform a GET to /docs to get started."}
+    return {"message": "Success, API connection works©. Perform a GET to /docs to get started."}
 
 @app.post("/replace")
 async def replace_string_words(request: Request):
