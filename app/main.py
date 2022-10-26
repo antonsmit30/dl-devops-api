@@ -27,6 +27,7 @@ Request:\n
 
 Response:\n
 {"data": "Google©, Microsoft© and Amazon© are the top Cloud competitors."}\n
+
     """
     data = await request.json()
     for i, w in enumerate(words_to_replace):
