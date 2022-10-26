@@ -29,3 +29,4 @@ phases:
     commands:
       - echo Pushing up image $REPO:$BranchName-$CODEBUILD_BUILD_NUMBER
       - docker push $REPO:$BranchName-$CODEBUILD_BUILD_NUMBER
+      - aws ssm put-parameter --name "/DL-API/REPO/VERSION" --type "String" --value $BranchName-$CODEBUILD_BUILD_NUMBER --overwrite
