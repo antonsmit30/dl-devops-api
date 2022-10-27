@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     REGION: eu-west-1
-    VERSION_TAG: v1
+    VERSION_TAG: $BranchName-$CODEBUILD_BUILD_NUMBER
   parameter-store:
     REPO: "/DL-API/REPO"
 
@@ -13,6 +13,7 @@ phases:
       - ls -lha # Check what is all in the directory
   pre_build:
     commands:
+      - pip install pytest fastapi
       - echo '====Running tests against application ===='
       - python -m pytest
     finally:
@@ -22,9 +23,10 @@ phases:
   build:
     commands:
       - echo building Container
-      - docker build -t $REPO:v1 .
+      - docker build -t $REPO:$BranchName-$CODEBUILD_BUILD_NUMBER .
     on-failure: ABORT
   post_build:
     commands:
-      - echo Pushing up image $REPO:v1
-      - docker push $REPO:v1
+      - echo Pushing up image $REPO:$BranchName-$CODEBUILD_BUILD_NUMBER
+      - docker push $REPO:$BranchName-$CODEBUILD_BUILD_NUMBER
+      - aws ssm put-parameter --name "/DL-API/REPO/VERSION" --type "String" --value $BranchName-$CODEBUILD_BUILD_NUMBER --overwrite

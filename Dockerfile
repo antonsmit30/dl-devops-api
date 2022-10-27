@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM 386659630225.dkr.ecr.eu-west-1.amazonaws.com/base_images/python:3.10
 WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
